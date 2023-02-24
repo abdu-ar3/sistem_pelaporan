@@ -10,8 +10,8 @@
         <div class="card ">
         <div class="card-header pb-0 p-3">
         <div class="d-flex justify-content-between">
-        <h6 class="mb-2">List Jalan & Jembatan</h6>
-    </div><br>
+        <h6>List Jalan & Jembatan</h6>
+    </div>
 
       <!-- Message -->
     @if(session('status'))
@@ -35,7 +35,7 @@
             </form>
         </div>
         
-        
+        @if (auth()->user()->level == "admin")
         <div class="col-md-6">
             <div class="col-md-3">
                 <div class="row mb-3">
@@ -43,6 +43,7 @@
                 </div>
             </div>
         </div><br>
+        @endif
   <thead>
                 <tr>
                     <td><b>No.</b></td>
@@ -67,14 +68,18 @@
                     <td>{{$jr->tugas_untuk}}</td>
                     <td>{{$jr->atasan}}</td>
 
+                    
                     <td> 
+                        @if (auth()->user()->level == "admin")
                         <form onsubmit="return confirm('Delete this Revenue Weeks permanently?')" class="d-inline" action="{{route('jj_rusak.destroy', $jr->id)}}" method="POST">
                             @csrf
                             <input type="hidden" name="_method" value="DELETE">
                             <input type="submit" value="Delete" class="btn btn-danger btn-sm">
                         </form>
+                        @endif
                         <a href="{{route('jj_rusak.show', [$jr->id])}}" class="btn btn-success btn-sm">Details</a>
                     </td>
+                    
                 </tr>
             @endforeach
             </tbody>

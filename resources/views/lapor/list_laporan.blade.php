@@ -71,11 +71,13 @@
                         @endif
                     </td>
                     <td> 
+                        @if (auth()->user()->level == "admin")
                         <form onsubmit="return confirm('Delete this Revenue Weeks permanently?')" class="d-inline" action="{{route('lapors.destroy', $list->id)}}" method="POST">
                             @csrf
                             <input type="hidden" name="_method" value="DELETE">
                             <input type="submit" value="Delete" class="btn btn-danger btn-sm">
                         </form>
+                        @endif
                          <a href="{{route('lapors.show', [$list->id])}}" class="btn btn-success btn-sm">Details</a>
                     </td>
                 </tr>
